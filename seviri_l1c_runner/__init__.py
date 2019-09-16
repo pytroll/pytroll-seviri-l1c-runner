@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-"""
+"""seviri-l1c-runner Package initializer
 """
 
 import yaml
@@ -28,6 +28,14 @@ try:
     from yaml import UnsafeLoader
 except ImportError:
     from yaml import Loader as UnsafeLoader
+
+import os
+from pkg_resources import get_distribution, DistributionNotFound
+try:
+    __version__ = get_distribution(__name__).version
+except DistributionNotFound:
+    # package is not installed
+    pass
 
 
 def get_config(configfile, service, procenv):
