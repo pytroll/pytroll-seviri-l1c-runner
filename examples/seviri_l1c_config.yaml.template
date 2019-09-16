@@ -1,0 +1,42 @@
+site: nrk
+
+seviri-l1c:
+
+  message_types: ['/1b/hrit/0deg']
+  publish_topic: ['1c/nc/0deg']
+  instrument: 'seviri'
+  num_of_cpus: 2
+  offline:
+    output_dir: /home/a000680/data/viirs_active_fires
+
+  prod:
+    output_dir: /data/24/saf/polar_out/viirs_active_fires
+    working_dir: /data/24/saf/polar_out/viirs_active_fires
+  test:
+    output_dir: /data/prodtest/saf/polar_out/viirs_active_fires
+    working_dir: /data/24/saf/polar_out/viirs_active_fires
+  utv:
+    output_dir: /nobackup/smhid15/sm_erjoh/Satsa/satellit/Meteosat9/SEVIRI/lvl1c/2019/PPS_data/2019/08/01
+    working_dir: /nobackup/smhid15/sm_erjoh/Satsa/satellit/work_dir
+
+seviri-ctth:
+
+  areas_of_interest: [euron1]
+  message_types_1c: ['/1c/nc/0deg/EDR/2/nrk/utv/polar/direct_readout']
+  message_types_cm: ['/2/nwcsaf-msg/0deg/ct-plax-corrected']
+  publish_topic: ['/SEVIRI/L2/AF']
+  instrument: seviri
+  viirs_af_call: cspp_active_fire_noaa.sh
+  num_of_cpus: 2
+  offline:
+    output_dir: /home/a000680/data/viirs_active_fires
+
+  prod:
+    output_dir: /data/24/saf/polar_out/viirs_active_fires
+
+  test:
+    output_dir: /data/prodtest/saf/polar_out/viirs_active_fires
+
+  utv:
+    output_dir: /data/proj/safutv/polar_out/viirs_active_fires
+
