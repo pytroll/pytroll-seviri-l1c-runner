@@ -27,7 +27,6 @@ from seviri2pps import process_one_scan  # @UnresolvedImport
 from posttroll.publisher import Publish  # @UnresolvedImport
 from posttroll.message import Message  # @UnresolvedImport
 
-import glob
 import logging
 import sys
 import os
@@ -40,7 +39,7 @@ elif six.PY3:
     from urllib.parse import urlunsplit  # @UnresolvedImport
 import socket
 
-from utils import (deliver_output_file, cleanup_cspp_workdir)
+from seviri_l1c_runner.utils import (deliver_output_file, cleanup_cspp_workdir)
 
 
 SUPPORTED_METEOSAT_SATELLITES = ['meteosat-09', 'meteosat-10', 'meteosat-11']
