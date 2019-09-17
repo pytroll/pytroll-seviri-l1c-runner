@@ -23,7 +23,7 @@
 
 from seviri_l1c_runner import get_config
 
-from seviri2pps import process_one_scan  # @UnresolvedImport
+from level1c4pps.seviri_hrit import process_one_scan
 from posttroll.publisher import Publish  # @UnresolvedImport
 from posttroll.message import Message  # @UnresolvedImport
 
@@ -41,8 +41,8 @@ import socket
 
 from seviri_l1c_runner.utils import (deliver_output_file, cleanup_workdir)
 
-
 SUPPORTED_METEOSAT_SATELLITES = ['meteosat-8', 'meteosat-9', 'meteosat-10', 'meteosat-11']
+
 
 #: Default time format
 _DEFAULT_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
