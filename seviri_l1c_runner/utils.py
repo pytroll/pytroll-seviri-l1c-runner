@@ -27,24 +27,9 @@
 import logging
 import os
 from glob import glob
-import netifaces
-import six
-import time
 from datetime import datetime, timedelta
 import shutil
 import stat
-
-if six.PY2:
-    from urlparse import urlparse
-    from urlparse import urlunsplit
-elif six.PY3:
-    from urllib.parse import urlparse
-    from urllib.parse import urlunsplit
-
-if six.PY2:
-    ptimer = time.clock
-elif six.PY3:
-    ptimer = time.perf_counter
 
 LOG = logging.getLogger(__name__)
 
@@ -86,19 +71,8 @@ def deliver_output_file(affile, base_dir, subdir=None):
     return retvl
 
 
-def get_local_ips():
-    inet_addrs = [netifaces.ifaddresses(iface).get(netifaces.AF_INET)
-                  for iface in netifaces.interfaces()]
-    ips = []
-    for addr in inet_addrs:
-        if addr is not None:
-            for add in addr:
-                ips.append(add['addr'])
-    return ips
-
-
-def cleanup_cspp_workdir(workdir):
-    """Clean up the CSPP working dir after processing"""
+def cleanup_workdir(workdir):
+    """Clean up the working dir after processing"""
 
     filelist = glob('%s/*' % workdir)
     dummy = [os.remove(s) for s in filelist if os.path.isfile(s)]
@@ -108,29 +82,3 @@ def cleanup_cspp_workdir(workdir):
 #     shutil.rmtree(workdir)
     return
 
-
-def get_edr_times(filename):
-    """Get the start and end times from the SDR file name
-    """
-    bname = os.path.basename(filename)
-    sll = bname.split('_')
-    start_time = datetime.strptime(sll[2] + sll[3][:-1],
-                                   "d%Y%m%dt%H%M%S")
-    end_time = datetime.strptime(sll[2] + sll[4][:-1],
-                                 "d%Y%m%de%H%M%S")
-    if end_time < start_time:
-        end_time += timedelta(days=1)
-
-    return start_time, end_time
-
-
-def get_active_fire_result_files(res_dir):
-    """
-    Make alist of all result files that should be captured from the CSPP
-    work-dir for delivery
-    """
-
-    result_files = (glob(os.path.join(res_dir, 'AF*.nc')) +
-                    glob(os.path.join(res_dir, 'AF*.txt')))
-
-    return sorted(result_files)
