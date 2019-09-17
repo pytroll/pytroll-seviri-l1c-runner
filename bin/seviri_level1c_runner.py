@@ -39,7 +39,7 @@ elif six.PY3:
     from urllib.parse import urlunsplit  # @UnresolvedImport
 import socket
 
-from seviri_l1c_runner.utils import (deliver_output_file, cleanup_cspp_workdir)
+from seviri_l1c_runner.utils import (deliver_output_file, cleanup_workdir)
 
 
 SUPPORTED_METEOSAT_SATELLITES = ['meteosat-8', 'meteosat-9', 'meteosat-10', 'meteosat-11']
@@ -208,7 +208,7 @@ def seviri_l1c_runner(options, service_name="unknown"):
                             LOG.info("home_dir = working_dir no cleaning necessary")
                         else:
                             LOG.info("Cleaning up directory %s", af_proc.working_home)
-                            cleanup_cspp_workdir(af_proc.working_home + '/')
+                            cleanup_workdir(af_proc.working_home + '/')
 
                         publish_l1c(publisher, af_files,
                                     af_proc.message_data,

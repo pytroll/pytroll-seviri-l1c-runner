@@ -71,8 +71,8 @@ def deliver_output_file(affile, base_dir, subdir=None):
     return retvl
 
 
-def cleanup_cspp_workdir(workdir):
-    """Clean up the CSPP working dir after processing"""
+def cleanup_workdir(workdir):
+    """Clean up the working dir after processing"""
 
     filelist = glob('%s/*' % workdir)
     dummy = [os.remove(s) for s in filelist if os.path.isfile(s)]
