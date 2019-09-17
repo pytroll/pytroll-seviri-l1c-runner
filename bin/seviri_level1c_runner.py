@@ -42,7 +42,7 @@ import socket
 from seviri_l1c_runner.utils import (deliver_output_file, cleanup_cspp_workdir)
 
 
-SUPPORTED_METEOSAT_SATELLITES = ['meteosat-09', 'meteosat-10', 'meteosat-11']
+SUPPORTED_METEOSAT_SATELLITES = ['meteosat-8', 'meteosat-9', 'meteosat-10', 'meteosat-11']
 
 #: Default time format
 _DEFAULT_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
