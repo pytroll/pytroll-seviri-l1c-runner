@@ -219,7 +219,50 @@ def seviri_l1c_runner(options, service_name="unknown"):
                         LOG.info("L1C processing has completed.")
 
 
+def get_arguments():
+    """
+    Get command line arguments
+    Return
+    name of the service and the config filepath
+    """
+    import argparse
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('-c', '--config_file',
+                        type=str,
+                        dest='config_file',
+                        required=True,
+                        help="The file containing " +
+                        "configuration parameters e.g. product_filter_config.yaml")
+    parser.add_argument("-s", "--service",
+                        help="Name of the service (e.g. iasi-lvl2)",
+                        dest="service",
+                        type=str,
+                        required=True)
+    parser.add_argument("-l", "--logging",
+                        help="The path to the log-configuration file (e.g. './logging.ini')",
+                        dest="logging_conf_file",
+                        type=str,
+                        required=False)
+
+    args = parser.parse_args()
+
+    service = args.service.lower()
+
+    if 'template' in args.config_file:
+        print("Template file given as master config, aborting!")
+        sys.exit()
+
+    return args.logging_conf_file, service, args.config_file
+
 if __name__ == '__main__':
+    
+    (logfile, service_name, config_filename) = get_arguments()
+    
+    if logfile:
+        logging.config.fileConfig(logfile)
+    
     handler = logging.StreamHandler(sys.stderr)
     handler.setLevel(logging.DEBUG)
     formatter = logging.Formatter(fmt=_DEFAULT_LOG_FORMAT,
@@ -229,8 +272,6 @@ if __name__ == '__main__':
     logging.getLogger('').setLevel(logging.DEBUG)
     logging.getLogger('posttroll').setLevel(logging.INFO)
 
-    config_filename = "seviri_l1c_config.yaml.template"
-    service_name = "seviri-l1c"
     environ = "utv"
 
     OPTIONS = get_config(config_filename, service_name, environ)
